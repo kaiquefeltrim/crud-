@@ -10,7 +10,6 @@ export const TableRow = () => {
       <td className="px-6 py-4">Silver</td>
       <td className="px-6 py-4">Laptop</td>
       <td className="px-6 py-4">$2999</td>
-      <td className="px-6 py-4">$2999</td>
       <td className="px-6 py-4">
         <a
           href="#"
