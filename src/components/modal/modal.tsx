@@ -21,11 +21,47 @@ const styleButton = {
   
 }
 
+interface CadastroProps {
+  onSalvar: (formData: any) => void;
+}
 
-export const Cadastro = () => {
+export const Cadastro: React.FC<CadastroProps> = ({ onSalvar}) => {
+
+  const [formulario, setFormulario] = React.useState({
+    cliente: '',
+    data: '',
+    email: '',
+    celular: '',
+  });
+
+  const handleSalvar = () => {
+    const dadosFormulario = formulario
+    onSalvar(dadosFormulario);
+    handleClose();
+  };
+
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+      setOpen(false);
+      // Limpar o formulário ao fechar o modal
+      setFormulario({
+        cliente: '',
+        data: '',
+        email: '',
+        celular: '',
+      });
+    };
+
+      // Função para atualizar o estado do formulário com base nas mudanças nos campos do formulário
+  const handleChange = (campo: any, valor: any) => {
+    setFormulario((prevFormulario) => ({
+      ...prevFormulario,
+      [campo]: valor,
+    }));
+  };
+
+  
     return(
         <div>
         <Button onClick={handleOpen}>Cadastro</Button>
@@ -41,9 +77,9 @@ export const Cadastro = () => {
               Novo Cliente
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                <Form />
+                <Form onChange={handleChange} />
                 <Button onClick={handleClose}>Cancelar</Button>
-                <Button onClick={handleOpen}>Salvar</Button>
+                <Button onClick={handleSalvar}>Salvar</Button>
             </Typography>
           </Box>
         </Modal>
